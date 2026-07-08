@@ -20,13 +20,13 @@ Duyệt vòng lặp for để xét các cặp phần tử.
 VD: j = 3 => A[j] = 5
 => Để A[j] - A[i] là lớn nhất, thì cần lấy A[j] trừ với A[i] nhỏ nhất có thể.
 - Gọi min là phần tử nhỏ nhất có thể trong mảng:
-    int min = A[0];
+    long min = A[0];
 - Gọi maxDiff là giá trị lớn nhất của A[j] - A[i] cần tìm:
-    int maxDiff = 0;
+    long maxDiff = 0;
 - Duyệt vòng lặp for với j chạy từ 1 tới n-1:
-    for (int j = 1; j < n; j++)
+    for (long j = 1; j < n; j++)
         - Tính khoảng cách của A[j] hiện tại với giá trị min:
-            int diff = A[j] - min;
+            long diff = A[j] - min;
         - So sánh diff với maxDiff và cập nhật maxDiff nếu diff lớn hơn maxDiff:
             if (diff > maxDiff)
                 maxDiff = diff;
@@ -67,3 +67,6 @@ j = 4: A[j] = 3
         => bỏ qua
     - so sánh: A[j] = 3 > min = 1
         => bỏ qua
+
+
+### **EIUBIRTH**
