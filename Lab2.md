@@ -70,3 +70,55 @@ j = 4: A[j] = 3
 
 
 ### **EIUBIRTH**
+Mua quà. Có 2 loại quà:
+- Màu xanh: giá X
+- Màu đỏ: giá Y
+- Phí đổi: Z
+Tính minCost.
+
+VD:
+Cần mua:
+    5 xanh
+    7 đỏ
+Giá:
+    X = 2
+    Y = 6
+    Z = 3
+
+Xét màu xanh:
+    Giá: X = 2
+    - Nếu mua 5 xanh, cần: 5*2 = 10 đồng
+    - Nếu mua 5 đỏ và đổi thành xanh, cần:
+        5*6 + 5*3 = 45
+Xét màu đỏ:
+    Giá: Y = 6
+    - Nếu mua 7 đỏ, cần: 7*6 = 42 đồng
+    - Nếu mua 7 xanh, và đổi qua đỏ:
+        7*2 + 7*3 = 35 đồng < 42 đồng
+    => Nếu cần mua 7 đỏ, nên mua 7 xanh và đổi thành 7 đỏ => tốn ít tiền hơn.
+
+Ý tưởng:
+- Với mỗi loại quà (xanh hoặc đỏ):
+    - So sánh giá tiền 2 trường hợp:
+        1. Mua trực tiếp loại quà màu đó
+        2. Mua loại quà màu còn lại và đổi lại
+    => Phương án nào tốn ít tiền hơn thì chọn phương án đó.
+    => Dùng if/else hoặc Math.min()
+
+Hướng dẫn:
+- Input:
+    B: xanh
+    R: đỏ
+    X
+    Y
+    Z
+- Tính toán:
+    1. Tính giá tiền tối ưu để 1 món quà màu xanh:
+        - TH1: X
+        - TH2: (Y+Z) => tốn Y để mua 1 món đỏ, và tốn thêm Z để đổi từ đỏ thành xanh.
+        => công thức:
+        costB = Math.min(X, Y+Z);
+    2. Tương tự, tính cho màu đỏ.
+        costR
+    3. Tính tổng tiền:
+        totalCost = B*costB + R*costR;
