@@ -122,3 +122,64 @@ Hướng dẫn:
         costR
     3. Tính tổng tiền:
         totalCost = B*costB + R*costR;
+
+### **EIUCUBES**
+Xây kim tự tháp.
+Input:
+    - n: Số lượng viên gạch
+Output:
+    - Tính số lớp xây được
+
+Số gạch cần để xây mỗi lớp:
+- Layer 1: 1
+- Layer 2: 1 + 2 = số gạch cần để xây layer 1 + số layer
+- Layer 3: 1 + 2 + 3 = số gạch cần để xây layer 2 + số layer
+- Layer 4: 1 + 2 + 3 + 4 = số gạch cần để xây layer 3 + số layer
+- ...
+
+Biết: 1 <= n <= 10,000
+=> n luôn >= 1 => luôn có đủ gạch để xây lớp đầu tiên
+
+VD: n = 25
+- Ban đầu, có n = 25 viên gạch.
+- Xét Layer 1:
+    + Số gạch cần:
+        needed_bricks = 1
+    + Kiểm tra số gạch còn lại có đủ để xây layer 1:
+        (left_bricks = 25) > (needed_bricks = 1)
+    => đủ: cập nhật số layer xây được:
+        built_layers++;
+        left_bricks -= needed_bricks;
+- Xét layer 2:
+    + Số gạch cần:
+        needed_bricks = 1 + 2 = needed_bricks + layer
+    + Kiểm tra số gạch còn lại có đủ để xây layer 1:
+        (left_bricks = 24) > (needed_bricks = 3)
+    => đủ: cập nhật số layer xây được:
+        built_layers++;
+        left_bricks -= needed_bricks; (left_bricks = 24 - 3 = 21)
+- Xét tương tự cho các layer còn lại.
+
+=> tổng quát hóa:
+int left_bricks = n;
+int built_layers = 0;
+int layer = 1;
+int needed_bricks = 1;
+
+while (left_bricks >= needed_bricks)
+    built_layers++;
+    left_bricks -= needed_bricks;
+
+    //cập nhật layer tiếp theo
+    layer++; 
+    //tính số gạch cần cho layer tiếp theo
+    needed_bricks += layer; 
+
+
+
+
+
+
+
+
+
