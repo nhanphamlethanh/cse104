@@ -176,10 +176,99 @@ while (left_bricks >= needed_bricks)
     needed_bricks += layer; 
 
 
+### **DISCOUNT**
+Cửa hàng ABC áp dụng chiết khấu cho khách hàng.
+Chiết khấu được áp dụng theo từng bậc khác nhau dựa vào hóa đơn mua hàng.
+Cụ thể:
+- Từ 1_000 đến 2_000_000:           không giảm giá      level 0
+- Từ 2_000_000 đến 10_000_000:      giảm 3%             level 1
+- Từ 10_000_000 đến 50_000_000:     giảm 5%             level 2
+- Từ 50_000_000 đến 100_000_000:    giảm 7%             level 3
+- Từ 100_000_000 đến 200_000_000:   giảm 10%            level 4
+- Từ 200_000_000 đến 500_000_000:   giảm 12%            level 5
+- Từ 500_000_000 trở lên:           giảm 15%            level 6
+
+VD: bill = 20_000_000
+- Xét level 1: Từ 2_000_000 đến 10_000_000 
+=> số tiền được chiết khấu: 
+    amount = 10 - 2 = 8_000_000
+=> được giảm 3% 8 triệu:
+    discount = amount / 100 * 3 = 240_000
+
+- Xét level 2: Từ 10_000_000 đến 50_000_000
+=> số tiền được chiết khấu:
+    amount = 20_000_000 - 10_000_000 = 10_000_000
+=> được giảm 5%:
+    discount = amount / 100 * 5
+
+Hướng dẫn:
+Cách 1: if-else
+    long total_discount = 0;
+    Lần lượt xét từng ngưỡng
+    - Level 1:
+    if (bill > 2_000_000)
+        // tính số tiền có thể được chiết khấu ở ngưỡng này:
+        long amount = Math.min(10_000_000, bill) - 2_000_000;
+        // tính số tiền được giảm:
+        long discount = amount / 100 * 3;
+        total_discount += discount;
+    
+    if (bill > 10_000_000)
+        long amount = Math.min(50_000_000, bill) - 10_000_000;
+        long discount = amount / 100 * 5;
+        total_discount += discount;
+
+    if (bill > 50_000_000)
+        long amount = Math.min(100_000_000, bill) - 50_000_000;
+        long discount = amount / 100 * 7;
+        total_discount += discount;
+
+    if (bill > 100_000_000)
+        long amount = Math.min(200_000_000, bill) - 100_000_000;
+        long discount = amount / 100 * 10;
+        total_discount += discount;
+
+    if (bill > 200_000_000)
+        long amount = Math.min(500_000_000, bill) - 200_000_000;
+        long discount = amount / 100 * 12;
+        total_discount += discount;
+
+    if (bill > 500_000_000)
+        long amount = bill - 500_000_000;
+        long discount = amount / 100 * 15;
+        total_discount += discount;
+    long pay = bill - total_discount;
+    sysout(pay)
+
+VD:
+bill 1 = 20 triệu
+bill 2 = 8 triệu
+
+Xét level 1: từ 2 triệu tới 10 triệu, được giảm 3%
+- với bill 1, số tiền được giảm là?
+    amount1 = 10 - 2 = 8 triệu
+- với bill 2, số tiền được giảm là?
+    amount2 = 8 - 2 = 6 triệu
+
+Ở level 1, số tiền tối đa có thể được chiết khấu là?
+    tối đa là 8 triệu.
+
+=> công thức tổng quát: tính số tiền có thể được chiết khấu ở level 1?
+    amount = Math.min(10_000_000, bill) - 2_000_000;
 
 
+Cách 2: dùng mảng
+long[] limit = {2_000_000, 10_000_000, 50_000_000, 100_000_000, 200_000_000, 500_000_000, Long.MAX_VALUE};
+long[] rate = {0, 3, 5, 7, 10, 12, 15};
+long previousLimit = 0;
+for (int i=0; i<limit.length; i++)
+    if (bill > previousLimit)
+        long amount = Math.min(limit[i], bill) - previousLimit;
+        long discount = amount / 100 * rate[i];
+        total_discount += discount;
 
-
-
+        previousLimit = limit[i];
+    else
+        break;
 
 
