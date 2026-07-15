@@ -184,3 +184,92 @@ for (int i=0; i<n; i++)
     total_pay += bill;
 
     sysout(discount);
+
+
+### **EIBANKFEE**
+Input:
+    + amount: số tiền 
+    + n: số tấm séc
+Output:
+    + total_fee: tổng phí phải trả
+
+Công thức:
+    total_fee = monthly_fee + check_fee
+
+VD:
+amount = 10
+n = 10
+
+với amount = 10 => amount thuộc ngưỡng 1 (<500)
+    => biết:
+    + phí hàng tháng:
+        monthly_fee = 12.0
+    + tổng phí trả cho các tấm séc:
+        check_fee = n * 0.2 = 2.0
+    => tổng phí:
+        total_fee = monthly_fee + check_fee
+            = 12.0 + 2.0 = 14.0
+
+VD:
+amount = 1495.4
+n = 100
+=> amount thuộc ngưỡng 2 (500-1999)
+=> biết được:
+    monthly_fee = 7.5
+    check_fee = n * 0.2 = 20.0
+=> tính total_fee:
+    total_fee = month;y_fee + check_fee 
+              = 7.5 + 20.0 = 27.5
+
+
+
+### **EISALARY2**
+Tính lương theo giờ.
+Input:
+    + n: số nhân viên
+    + n dòng, mỗi dòng bao gồm:
+        + 5 số: tương ứng với số giờ làm việc mỗi ngày
+        + 1 số: tương ứng với lương theo giờ của nhân viên 
+Output:
+    + n dòng: tương ứng với tổng lương của từng nhân viên
+    + lương trung bình -> giờ làm việc chính
+    + lương trung bình -> làm ngoài giờ
+
+VD:
+employees = 3
+- E1:
+    Day 1: 1 
+    Day 2: 2
+    Day 3: 3
+    Day 4: 10
+    Day 5: 2
+    Hourly wage: 5
+
+- E2:
+    Day 1: 11
+    Day 2: 0
+    Day 3: 0
+    Day 4: 0
+    Day 5: 0
+    Hourly wage: 6.2
+
+- E3:
+    Day 1: 1 
+    Day 2: 1
+    Day 3: 2
+    Day 4: 1
+    Day 5: 1
+    Hourly wage: 10
+
+- Tính lương trung bình theo giờ làm việc chính:
+    + total_office_wage: Tổng lương của tất cả các nhân viên trong giờ hành chính
+    + total_office_hour: Tổng số giờ làm việc chính của tất cả các nhân viên
+
+    average_office_wage = total_office_wage / total_office_hour
+
+- Tính lương trung bình theo giờ làm thêm:
+    average_overtime_wage = total_overtime_wage / total_overtime_hour
+
+    với:
+        total_overtime_wage: tổng lương làm thêm giờ của tất cả nhân viên 
+        total_overtime_hour: tổng số giờ làm thêm của tất cả nhân viên
