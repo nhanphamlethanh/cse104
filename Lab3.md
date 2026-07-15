@@ -118,3 +118,69 @@ Cách 1: if-else
         total_income += actual_pay;
 
 
+### **EIUSALES**
+- Input:
+    figure: doanh số bán hàng của nhân viên X
+- Output:
+    bonus: tiền thưởng của nhân viên X
+
+VD:
+figure = 10
+
+Hướng dẫn: dùng array
+
+long figure = sc.nextLong(); //doanh số
+
+long[] rate = {2, 3, 4, 5, 6, 7};
+
+Cách 1:
+long[] limit = {0, 20, 50, 200, 500, 2000};
+
+double bonus = 0;
+for (int i=0; i<limit.length-1; i++)
+    if (figure > limit[i])
+        long current_limit = Math.min(figure, limit[i+1]) - limit[i];
+        bonus += current_limit / 100 * rate[i];
+if (figure > 2000)
+    bonus += (figure - 2000) /100 * 7;
+
+Cách 2: tương tự bài DISCOU (Lab 2)
+long[] limit = {20, 50, 200, 500, 2000, Long.MAX_VALUE};
+
+
+### **EIMEMCARD**
+- Input:
+    n: số lượng mua sắm
+    n số nguyên => giá trị hóa đơn của từng lần mua
+- Output:
+    n số => số tiền được giảm ở từng lần mua
+
+VD: 1 khách hàng mua 5 lần tại cửa hàng, với hóa đơn mỗi lần mua lần lượt như sau
+n = 5
+1 khách hàng mua 5 lần tại cửa hàng, với hóa đơn mỗi lần mua lần lượt như sau:
+bill_1 = 500_000            => discount = 0 => chưa được xếp membership 
+bill_2 = 2_000_000          => discount = 0 => xếp hạng Starter 
+bill_3 = 6_000_000          => discount = 120_000 => duy trì hạng Starter
+bill_4 = 50_000_000         => discount = 1_000_000 => tăng hạng Diamond
+bill_5 = 3_000_000          => discount = 150_000 => duy trì hạng Diamond
+
+Hướng dẫn:
+
+double total_pay = 0;
+for (int i=0; i<n; i++)
+    double bill = sc.nextDouble();
+    
+    double discount = 0;
+
+    if (total_pay >= 200_000_000)
+        discount = bill * 0.07;
+    else if (total_pay >= 50_000_000)
+        discount = bill * 0.05;
+    else if (total_pay >= 20_000_000)
+        discount = bill * 0.03;
+    else if (total_pay >= 1_000_000)
+        discount = bill * 0.02;
+    
+    total_pay += bill;
+
+    sysout(discount);
