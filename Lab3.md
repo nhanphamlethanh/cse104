@@ -50,3 +50,71 @@ while (low <= high)
     else 
         high = mid - 1;
 
+
+### **EIUCHRMS**
+- Input:
+    + n: số lượng hóa đơn
+    + n số tương đương với giá trị của n hóa đơn (lần lượt)
+- Output: tổng thu nhập của cửa hàng
+    total_income = tổng giá trị của tất cả các hóa đơn sau khi chiết khấu.
+
+VD:
+n = 5
+bill_1 = 10_000 
+bill_2 = 1_000_000 
+bill_3 = 3_000_000 
+bill_4 = 5_000_000 
+bill_5 = 100_000_000
+
+total_income = 100_659_700
+
+Xét lần lượt từng hóa đơn:
++ bill_1 = 10_000 => chiết khấu: 3%
+=> bill_1 = 10_000 - 10_000/100*3 = 9_700
++ bill_2 = 1_000_000 => chiết khấu: 3%
+=> bill_2 = 1_000_000 - 1_000_000/100*3 = 970_000
++ bill_3 = 3_000_000 => chiết khấu 4%
+=> bill_3 = 3_000_000 - 3_000_000/100*4 = 2_880_000
++ bill_4 = 5_000_000 => chiết khấu: 4%
+=> bill_4 = 5_000_000 - 5_000_000/100*4 = 4_800_000
++ bill_5 = 100_000_000 => chiết khấu: 8%
+=> bill_5 = 100_000_000 - 100_000_000/100*8 = 92_000_000
+
+=> total_income = bill_1 + bill_2 + ... + bill_5
+                = 9_700 + 970_000 + 2_880_000 + 4_800_000 + 92_000_000
+                = 100_659_700
+
+Tổng quát hóa:
+- Có 8 ngưỡng: 
+    1. <=2tr 
+    2. <=5tr
+    3. <=10tr
+    4. <=20tr
+    5. <=50
+    6. <=100
+    7. <=200
+    8. >200
+- Xét lần lượt từng hóa đơn:
+    long bill = sc.nextLong();
+    - So sánh với từng ngưỡng, xem hóa đơn thuộc ngưỡng nào
+        => biết được số % chiết khấu
+            rate = ?
+    - Tính số tiền sau khi trừ chiết khấu: là số tiền thực tế khách hàng phải trả
+        long actual_pay = bill - bill/100*rate;
+    - Cộng vào biến tổng thu nhập:
+        total_income += actual_pay;
+
+Hướng dẫn:
+long total_income = 0;
+Cách 1: if-else
+    long bill = sc.nextLong();
+    if (bill <= 2_000_000)
+        int rate = 3;
+        long actual_pay = bill - bill/100*rate;
+        total_income += actual_pay;
+    else if (bill <= 5_000_000)
+        int rate = 4;
+        long actual_pay = bill - bill/100*rate;
+        total_income += actual_pay;
+
+
