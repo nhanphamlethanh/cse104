@@ -199,3 +199,78 @@ i3:
 pay += tempN * cost += 0 * cost;
 
 n = 2500
+
+
+### **EIVCHR2**
+
+int N = sc.nextInt();
+long pay = 0;
+long max = 0;
+
+for (int i =0; i<N; i++)
+    long price = sc.nextLong();
+    if (price > max)
+        max = price;
+    pay += price;
+
+long discount = Math.min(50_000, max/100*30);
+pay -= discount;
+sysout(pay); 
+
+item 1:
+    price = 100_000
+    max = 100_000
+    pay = 100_000
+item 2:
+    price = 5000
+    max = 100_000
+    pay = 105_000
+item 3:
+    price = 2000
+    max = 100_000
+    pay = 107_000
+item 4:
+    price = 100_000
+    max = 100_000
+    pay = 207_000
+item 5:
+    price = 200_000
+    max = 200_000
+    pay = 407_000
+discount = Math.min(50_000, 60_000) = 50_000
+pay = 357_000
+
+
+### **EIVCHR3**
+- Có M vouchers
+- Mua N sản phẩm
+- discount rate = 30%, maximum 50_000
+
+Tính total_pay.
+
+Ý tưởng:
+- Nhận và lưu giá của N items vào 1 array có length N.
+- Sắp xếp phần tử trong array theo thứ tự từ bé đến lớn.
+- Áp dụng chiết khấu vào M items có giá cao nhất.
+
+int N = sc.nextInt();
+long[] prices = new long[N];
+long total_pay = 0;
+
+for (int i=0; i<N; i++)
+    prices[i] = sc.nextLong();
+    total_pay += prices[i];
+
+Arrays.sort(prices);
+long total_discount = 0;
+int k = Math.min(N, M); // k là số items được áp dụng vouchers
+
+for (int i=N-1; i>=(N-k); i--)
+    long discount = Math.min(prices[i]/100*30, 50_000);
+    total_discount += discount;
+
+total_pay -= total_discount;
+sysout(total_pay);
+
+
+0 1 2 3 4 5 6 7 8 9
